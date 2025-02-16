@@ -101,11 +101,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where create_id = #{userId}
     </select>
     <select id="typeCapacityStats" resultType="java.util.Map">
-        select type,sum(size) size from disk_file where create_id = #{userId} and type!=5
+        select type,sum(size) size from disk_file
+        <where>
+            type!=5
+            <if test="userId != null">
+                and create_id = #{userId}
+            </if>
+        </where>
         GROUP BY type
     </select>
     <select id="fileTypeNumStats" resultType="java.util.Map">
-        select type,count(1) num from disk_file where create_id = #{userId}
+        select type,count(1) num from disk_file
+        <where>
+            type!=5
+            <if test="userId != null">
+                and create_id = #{userId}
+            </if>
+        </where>
         GROUP BY type
     </select>
 

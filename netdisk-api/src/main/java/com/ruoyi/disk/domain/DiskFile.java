@@ -10,170 +10,194 @@ import java.util.List;
 
 /**
  * 文件对象 disk_file
- * 
+ *
  * @author maple
  * @date 2024-04-11
  */
-public class DiskFile extends BaseEntity
-{
+public class DiskFile extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /**  */
+    /**
+     *
+     */
     private Long id;
 
-    /** 文件名 */
+    /**
+     * 文件名
+     */
     @Excel(name = "文件名")
     private String name;
 
-    /** 旧文件名 */
+    /**
+     * 旧文件名
+     */
     @Excel(name = "旧文件名")
     private String oldName;
 
-    /** 文件大小 */
+    /**
+     * 文件大小
+     */
     @Excel(name = "文件大小")
     private Long size;
 
-    /** 文件地址 */
+    /**
+     * 文件地址
+     */
     @Excel(name = "文件地址")
     private String url;
 
-    /** 文件类型 */
+    /**
+     * 文件类型
+     */
     @Excel(name = "文件类型")
     private Integer type;
 
-    /** 父级id */
+    /**
+     * 父级id
+     */
     @Excel(name = "父级id")
     private Long parentId;
 
-    /** 是否是目录 */
+    /**
+     * 是否是目录
+     */
     @Excel(name = "是否是目录")
     private Integer isDir;
 
-    /** 排序 */
+    /**
+     * 排序
+     */
     @Excel(name = "排序")
     private Integer orderNum;
 
-    /** 创建者 */
+    /**
+     * 创建者
+     */
     @Excel(name = "创建者")
     private Long createId;
 
-    /** 更新者 */
+    /**
+     * 创建者
+     */
+    @Excel(name = "创建者")
+    private String creator;
+
+    /**
+     * 更新者
+     */
     @Excel(name = "更新者")
     private Long updateId;
 
-    /** 删除标志（0代表存在 */
+    /**
+     * 更新者
+     */
+    @Excel(name = "更新者")
+    private String modified;
+
+    /**
+     * 删除标志（0代表存在
+     */
     private String delFlag;
+
+    private boolean shared = false;
 
     private List<DiskFile> children;
 
     private SysUser sysUser;
 
-    public void setId(Long id) 
-    {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getId() 
-    {
+    public Long getId() {
         return id;
     }
-    public void setName(String name) 
-    {
+
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getName() 
-    {
+    public String getName() {
         return name;
     }
-    public void setOldName(String oldName) 
-    {
+
+    public void setOldName(String oldName) {
         this.oldName = oldName;
     }
 
-    public String getOldName() 
-    {
+    public String getOldName() {
         return oldName;
     }
-    public void setSize(Long size) 
-    {
+
+    public void setSize(Long size) {
         this.size = size;
     }
 
-    public Long getSize() 
-    {
+    public Long getSize() {
         return size;
     }
-    public void setUrl(String url) 
-    {
+
+    public void setUrl(String url) {
         this.url = url;
     }
 
-    public String getUrl() 
-    {
+    public String getUrl() {
         return url;
     }
-    public void setType(Integer type) 
-    {
+
+    public void setType(Integer type) {
         this.type = type;
     }
 
-    public Integer getType() 
-    {
+    public Integer getType() {
         return type;
     }
-    public void setParentId(Long parentId) 
-    {
+
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
-    public Long getParentId() 
-    {
+    public Long getParentId() {
         return parentId;
     }
-    public void setIsDir(Integer isDir) 
-    {
+
+    public void setIsDir(Integer isDir) {
         this.isDir = isDir;
     }
 
-    public Integer getIsDir() 
-    {
+    public Integer getIsDir() {
         return isDir;
     }
-    public void setOrderNum(Integer orderNum) 
-    {
+
+    public void setOrderNum(Integer orderNum) {
         this.orderNum = orderNum;
     }
 
-    public Integer getOrderNum() 
-    {
+    public Integer getOrderNum() {
         return orderNum;
     }
-    public void setCreateId(Long createId) 
-    {
+
+    public void setCreateId(Long createId) {
         this.createId = createId;
     }
 
-    public Long getCreateId() 
-    {
+    public Long getCreateId() {
         return createId;
     }
-    public void setUpdateId(Long updateId) 
-    {
+
+    public void setUpdateId(Long updateId) {
         this.updateId = updateId;
     }
 
-    public Long getUpdateId() 
-    {
+    public Long getUpdateId() {
         return updateId;
     }
-    public void setDelFlag(String delFlag) 
-    {
+
+    public void setDelFlag(String delFlag) {
         this.delFlag = delFlag;
     }
 
-    public String getDelFlag() 
-    {
+    public String getDelFlag() {
         return delFlag;
     }
 
@@ -193,24 +217,51 @@ public class DiskFile extends BaseEntity
         this.sysUser = sysUser;
     }
 
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public String getModified() {
+        return modified;
+    }
+
+    public void setModified(String modified) {
+        this.modified = modified;
+    }
+
+    public boolean getShared() {
+        return shared;
+    }
+
+    public void setShared(boolean shared) {
+        this.shared = shared;
+    }
+
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("id", getId())
-            .append("name", getName())
-            .append("oldName", getOldName())
-            .append("size", getSize())
-            .append("url", getUrl())
-            .append("type", getType())
-            .append("parentId", getParentId())
-            .append("isDir", getIsDir())
-            .append("orderNum", getOrderNum())
-            .append("createId", getCreateId())
-            .append("createTime", getCreateTime())
-            .append("updateId", getUpdateId())
-            .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
-            .append("delFlag", getDelFlag())
-            .toString();
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("id", getId())
+                .append("name", getName())
+                .append("oldName", getOldName())
+                .append("size", getSize())
+                .append("url", getUrl())
+                .append("type", getType())
+                .append("parentId", getParentId())
+                .append("isDir", getIsDir())
+                .append("orderNum", getOrderNum())
+                .append("createId", getCreateId())
+                .append("creator", getCreator())
+                .append("createTime", getCreateTime())
+                .append("updateId", getUpdateId())
+                .append("updator", getModified())
+                .append("updateTime", getUpdateTime())
+                .append("remark", getRemark())
+                .append("delFlag", getDelFlag())
+                .append("shared", getShared())
+                .toString();
     }
 }

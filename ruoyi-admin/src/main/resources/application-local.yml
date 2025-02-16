@@ -21,7 +21,7 @@ spring:
       master:
         url: jdbc:mysql://localhost:3306/netdisk?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8
         username: root
-        password: root
+        password: 12345678
       # 从库数据源
       slave:
         # 从数据源开关/默认关闭
@@ -75,7 +75,7 @@ spring:
   # redis 配置
   redis:
     # 地址
-    host: 47.96.248.176
+    host: 127.0.0.1
     # 端口，默认为6379
     port: 6379
     # 数据库索引

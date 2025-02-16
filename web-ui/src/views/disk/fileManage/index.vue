@@ -1,9 +1,9 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="68px">
-      <el-form-item label="文件名" prop="filename">
+      <el-form-item label="文件名" prop="name">
         <el-input
-          v-model="queryParams.filename"
+          v-model="queryParams.name"
           placeholder="请输入文件名"
           clearable
           size="small"
@@ -14,7 +14,7 @@
         <div>
 
         </div>
-        <el-button type="primary" icon="el-icon-upload" size="mini" @click="upload" v-hasPermi="['system:file:upload']">上传</el-button>
+<!--        <el-button type="primary" icon="el-icon-upload" size="mini" @click="upload" v-hasPermi="['system:file:upload']">上传</el-button>-->
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery" v-hasPermi="['disk:backFilelist:query']">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
       </el-form-item>
@@ -46,9 +46,13 @@
     <el-table v-loading="loading" :data="filelistList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="50" align="center" />
       <el-table-column label="编号" align="center" prop="id" />
-      <el-table-column label="文件名" align="center" prop="filename" />
-      <el-table-column label="本地地址" align="center" prop="location" />
-      <el-table-column label="文件总大小" align="center" prop="totalSize" :formatter="storageFormatter"/>
+      <el-table-column label="文件名" align="center" prop="oldName" />
+      <el-table-column label="本地地址" align="center" prop="url" />
+      <el-table-column label="文件大小" align="center" prop="size" :formatter="storageFormatter"/>
+      <el-table-column label="上传用户" align="center" prop="creator" />
+      <el-table-column label="上传时间" align="center" prop="createTime" />
+      <el-table-column label="是否分享" align="center" prop="shared" :formatter="sharedStatusFormatter" />
+<!--      <el-table-column label="分享类型" align="center" prop="shareType" :formatter="shareTypeFormatter" />-->
     </el-table>
 
     <pagination
@@ -62,8 +66,8 @@
     <!-- 添加或修改已上传文件列表对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px">
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="文件名" prop="filename">
-          <el-input v-model="form.filename" placeholder="请输入文件名" />
+        <el-form-item label="文件名" prop="name">
+          <el-input v-model="form.name" placeholder="请输入文件名" />
         </el-form-item>
         <el-form-item label="唯一标识,MD5" prop="identifier">
           <el-input v-model="form.identifier" placeholder="请输入唯一标识,MD5" />
@@ -115,7 +119,7 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        filename: undefined,
+        name: undefined,
         identifier: undefined,
         url: undefined,
         location: undefined,
@@ -125,7 +129,7 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        filename: [
+        name: [
           { required: true, message: "文件名不能为空", trigger: "blur" }
         ],
         identifier: [
@@ -141,15 +145,32 @@ export default {
     this.getList();
   },
   methods: {
+    shareTypeFormatter(row, column){
+      console.log(row.shareType)
+      if(row.shareType==="1"){
+        return "公开"
+      }else{
+        return "私密"
+      }
+
+    },
+    sharedStatusFormatter(row, column){
+      if(row.shared){
+        return "已分享"
+      }else{
+        return "未分享"
+      }
+
+    },
     storageFormatter(row, column){
-      let totalSize= row.totalSize;
+      let totalSize= row.size;
       //1073741824为1G
       if(totalSize>=1073741824){
-        return Math.round((row.totalSize/1073741824)*100)/100+"G"
+        return Math.round((totalSize/1073741824)*100)/100+"G"
       }else if(totalSize>=1048576){ //1048576为1M
-        return  Math.round((row.totalSize/1048576)*100)/100+"M"
+        return  Math.round((totalSize/1048576)*100)/100+"M"
       }else{
-        return  Math.round((row.totalSize/1024)*100)/100+"K"
+        return  Math.round((totalSize/1024)*100)/100+"K"
       }
     },
     upload() {
@@ -176,7 +197,7 @@ export default {
     reset() {
       this.form = {
         id: undefined,
-        filename: undefined,
+        name: undefined,
         identifier: undefined,
         url: undefined,
         location: undefined,

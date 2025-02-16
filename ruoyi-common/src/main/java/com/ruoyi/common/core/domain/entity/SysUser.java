@@ -44,6 +44,10 @@ public class SysUser extends BaseEntity
     @Excel(name = "用户邮箱")
     private String email;
 
+    /** 用户地址 */
+    @Excel(name = "用户地址")
+    private String address;
+
     /** 手机号码 */
     @Excel(name = "手机号码", cellType = ColumnType.TEXT)
     private String phonenumber;

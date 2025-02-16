@@ -55,16 +55,16 @@
         </el-form>
 
         <el-row :gutter="10" class="mb8">
-<!--          <el-col :span="1.5">-->
-<!--            <el-button-->
-<!--              type="primary"-->
-<!--              plain-->
-<!--              icon="el-icon-plus"-->
-<!--              size="mini"-->
-<!--              @click="handleAdd"-->
-<!--              v-hasPermi="['system:user:add']"-->
-<!--            >新增</el-button>-->
-<!--          </el-col>-->
+         <el-col :span="1.5">
+           <el-button
+             type="primary"
+             plain
+             icon="el-icon-plus"
+             size="mini"
+             @click="handleAdd"
+             v-hasPermi="['system:user:add']"
+           >新增</el-button>
+         </el-col>
           <el-col :span="1.5">
             <el-button
               type="success"
@@ -145,13 +145,13 @@
                 @click="handleUpdate(scope.row)"
                 v-hasPermi="['system:user:edit']"
               >修改</el-button>
-<!--              <el-button-->
-<!--                size="mini"-->
-<!--                type="text"-->
-<!--                icon="el-icon-delete"-->
-<!--                @click="handleDelete(scope.row)"-->
-<!--                v-hasPermi="['system:user:remove']"-->
-<!--              >删除</el-button>-->
+              <el-button
+                size="mini"
+                type="text"
+                icon="el-icon-delete"
+                @click="handleDelete(scope.row)"
+                v-hasPermi="['system:user:remove']"
+              >删除</el-button>
               <el-dropdown size="mini" @command="(command) => handleCommand(command, scope.row)" v-hasPermi="['system:user:resetPwd', 'system:user:edit']">
                 <el-button size="mini" type="text" icon="el-icon-d-arrow-right">更多</el-button>
                 <el-dropdown-menu slot="dropdown">

@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      title: '鸿枫网盘',
+      title: '在线网盘',
       logo: logoImg
     }
   }
